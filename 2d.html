@@ -1,0 +1,71 @@
+<! DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/2d.css">
+		<script 	src="js/jquery-2.2.1.min.js"	></script>
+		<script 	src="js/jquery-ui.min.js"		></script>
+		<script 	src="js/bootstrap.min.js"		></script>
+		<script 	src="js/2d.js"		></script>
+		
+		<title>2D</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Calendar</h1>
+			<h3>Plan your time for the best.</h3>
+		</div>
+		<div class="col-sm-6 col-md-offset-3" id="all">
+			<div class="container-fluid">
+				<p  style="margin-bottom: 0px;">
+					<span class="btn-group btn-group-justified">
+						<a class="btn btn-lg btn-default" id="back">back</a>
+						<a class="btn btn-lg btn-default btn-block" id="year"></a>
+						<a class="btn btn-lg btn-default" id="next">next</a>
+					</span>
+				</p>
+				<div  id="months">
+					<div class="month" value="0">Jan.</div>
+					<div class="month" value="1">Feb.</div>
+					<div class="month" value="2">Mar.</div>
+
+					<div class="month" value="3">Apr.</div>
+					<div class="month" value="4">May.</div>
+					<div class="month" value="5">June</div>
+
+					<div class="month" value="6">July</div>
+					<div class="month" value="7">Aug.</div>
+					<div class="month" value="8">Sept.</div>
+
+					<div class="month" value="9">Oct.</div>
+					<div class="month" value="10">Nov.</div>
+					<div class="month" value="11">Dec.</div>
+				</div>
+				
+				
+			</div>
+			<div id="calendar">
+			</div>
+		</div>
+		<div class="col-sm-6" id="goals">
+			<div class="container-fluid">
+				<h1 id="date_click"></h1>
+				<h2 data-toggle="collapse" data-target="#new_goal">New goal</h2>
+
+				<form onsubmit="return false;" class="collapse" id="new_goal">
+					<input id="year_goal" type="hidden">
+					<input id="month_goal" type="hidden">
+					<input id="day_goal" type="hidden">
+					<h3>Title:</h3>
+					<h3><input id="title_goal" type="text"></h3>
+					<h3>About:</h3>
+					<h3><input id="about_goal" type="text"></h3>
+					<input type="submit">
+				</form>
+			
+			</div>
+		</div>
+	</body>
+</html>
