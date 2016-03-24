@@ -6,6 +6,16 @@
     display: inline-block;
 }
 .date{
+		cursor :default;
+
+	-webkit-user-select: none;
+    /* user-select -- это нестандартное свойство */
+
+    -moz-user-select: none;
+    /* поэтому нужны префиксы */
+
+    -ms-user-select: none;
+
  	width: 12%;
 	height: 12%;
     background: #333333;

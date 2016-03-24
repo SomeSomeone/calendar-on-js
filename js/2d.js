@@ -61,12 +61,13 @@ function correctDateSize(time){
 }
 function paintGoals(year,month,day){
 	$(".goal").remove();
-
+	var delete_button='<div class="delete_goal btn btn-lg btn-default">x</div>'
 	try{
 		goals=getGoals()[year][month][day];
 		for (var i in goals ) {
 				$("#goals").append('<div class="goal" id="'+i+'">'+
-					'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+"</h2>"+
+					'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+
+					delete_button+"</h2>"+
 					'<div class="panel collapse" id="goal_'+i+'">'+goals[i]["about"]+"</div>"
 					+'</div>');
 		};
@@ -123,7 +124,14 @@ function newGoal(year,month,day,title,about){
 	goals[year][month][day].push({"title":title,"about":about})
 	postGoals(goals);
 }
-
+function deleteGoal(year,month,day,id){
+		var goals=getGoals();		
+		console.log(goals);
+		goals[year][month][day].splice(id,1);
+		postGoals(goals);
+		console.log("["+year+"]["+month+"]["+day+"]");
+		console.log(getGoals()[year][month][day]);
+}
 $(document).ready(function() { 
 	//back
 		//in start
@@ -213,6 +221,13 @@ $(document).ready(function() {
 
 	})
 	
+	$( "body" ).on( "click", ".delete_goal", function() {
+		deleteGoal($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val(),$(this).parent().parent().attr("id"));
+		eraseCalendar();
+		Init(year,month);
+		paintGoals($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val());
+
+	})
 
 
 })
