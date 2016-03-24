@@ -61,15 +61,20 @@ function correctDateSize(time){
 }
 function paintGoals(year,month,day){
 	$(".goal").remove();
-	var delete_button='<div class="delete_goal btn btn-lg btn-default">x</div>'
+	var delete_button='<div class="delete_goal btn btn-lg btn-danger">x</div>'
 	try{
 		goals=getGoals()[year][month][day];
 		for (var i in goals ) {
-				$("#goals").append('<div class="goal" id="'+i+'">'+
-					'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+
-					delete_button+"</h2>"+
-					'<div class="panel collapse" id="goal_'+i+'">'+goals[i]["about"]+"</div>"
-					+'</div>');
+			if(goals[i]["about"]){
+				var about='<div class="panel collapse" id="goal_'+i+'">'+goals[i]["about"]+"</div>";
+			}
+			else{
+				var about="";
+			}
+			$("#goals").append('<div class="goal" id="'+i+'">'+
+				'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+delete_button+"</h2>"+
+				about+'</div>')
+					
 		};
 	}
 	catch(e){
@@ -78,11 +83,8 @@ function paintGoals(year,month,day){
 }
 
 function countGoals(year,month,day){
-	console.log(year,month,day);
 	try{
 		goals=getGoals()[year][month][day];
-		console.log(goals);
-		console.log(year+":"+month+":"+day+"||"+goals.length);
 		return goals.length;
 	}
 	catch(e){
@@ -108,6 +110,9 @@ function getGoals(){
 	return JSON.parse(localStorage.getItem("calendar"));
 }
 function newGoal(year,month,day,title,about){
+	if (!title || title==""){
+		return false;
+	}
 	var goals=getGoals();
 	if(!goals){
 		goals={};
@@ -123,6 +128,8 @@ function newGoal(year,month,day,title,about){
 	}
 	goals[year][month][day].push({"title":title,"about":about})
 	postGoals(goals);
+	return  true;
+
 }
 function deleteGoal(year,month,day,id){
 		var goals=getGoals();		
@@ -211,14 +218,18 @@ $(document).ready(function() {
 		}
 	})
 	$("#new_goal").submit(function(){
-		newGoal($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val(),$("#title_goal").val(),$("#about_goal").val())	
-		eraseCalendar();
-		Init(year,month);
-		$(this).collapse("toggle");
-		paintGoals($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val());
-		$("#title_goal").val("");
-		$("#about_goal").val("");
-
+		
+		if(newGoal($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val(),$("#title_goal").val(),$("#about_goal").val())){
+			eraseCalendar();
+			Init(year,month);
+			$(this).collapse("toggle");
+			paintGoals($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val());
+			$("#title_goal").val("");
+			$("#about_goal").val("");
+		}
+		else{
+			alert("not valid goal");
+		}
 	})
 	
 	$( "body" ).on( "click", ".delete_goal", function() {
