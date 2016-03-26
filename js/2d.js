@@ -61,7 +61,7 @@ function correctDateSize(time){
 }
 function paintGoals(year,month,day){
 	$(".goal").remove();
-	var delete_button='<div class="delete_goal btn btn-lg btn-danger">x</div>'
+	var delete_button='<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>'
 	try{
 		goals=getGoals()[year][month][day];
 		for (var i in goals ) {
@@ -96,14 +96,6 @@ function postGoals(goals){
 	var goals={"year":{"month":{"day":[{"title":"title test","about":"about test"},{"title":"title test1","about":"about test1"}]}}};
 	*/
 	localStorage.setItem("calendar", JSON.stringify(goals));
-	try{
-	console.log(goals);
-	console.log(goals[2016]);
-	console.log(goals[2016][3]);
-	}
-	catch(e){
-		console.log(e)
-	}
 
 }
 function getGoals(){	
@@ -129,15 +121,36 @@ function newGoal(year,month,day,title,about){
 	goals[year][month][day].push({"title":title,"about":about})
 	postGoals(goals);
 	return  true;
-
 }
+function updateGoal(year,month,day,index,title,about){
+	if (!title || title==""){
+		return false;
+	}
+	var goals=getGoals();
+	if(!goals){
+		goals={};
+	}
+	if (!goals[year]){
+		goals[year]={};
+	}
+	if(!goals[year][month]){
+		goals[year][month]={};
+	}
+	if(!goals[year][month][day]){
+		goals[year][month][day]=[];
+	}
+	goals[year][month][day][index]['title']=title;
+	goals[year][month][day][index]['about']=about;
+	postGoals(goals);
+	return  true;
+}
+
+
 function deleteGoal(year,month,day,id){
 		var goals=getGoals();		
-		console.log(goals);
+
 		goals[year][month][day].splice(id,1);
 		postGoals(goals);
-		console.log("["+year+"]["+month+"]["+day+"]");
-		console.log(getGoals()[year][month][day]);
 }
 $(document).ready(function() { 
 	//back
@@ -237,6 +250,53 @@ $(document).ready(function() {
 		eraseCalendar();
 		Init(year,month);
 		paintGoals($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val());
+
+	})
+
+	$( "body" ).on( "dblclick", ".goal:not(.goal_update)", function() {
+		if($(".goal_update")[0]){
+			$(".goal_update").children("div").stop(true, true).attr("id","goal_"+$(".goal_update").attr("id"));
+			var childrens=$(".goal_update").children();
+			
+			var title=childrens[0].childNodes[0].value;
+			var about=childrens[1].childNodes[0].value;
+			
+			childrens[0].innerHTML=title+'<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>;'					
+			childrens[1].innerHTML=about;					
+
+			$(".goal_update").removeClass("goal_update");
+			$("#goal_update").remove();	
+		}
+
+
+		var childrens=$(this).children();
+		$(this).children("div").stop().addClass("in").attr("id","");
+
+		
+		
+		for (var index = childrens.length - 1; index >= 0; index--) {
+			var shit = childrens[index].childNodes[0].nodeValue;
+			childrens[index].innerHTML='<textarea class="form-control" rows="3" >'+shit+'</textarea>';
+		}
+		$(this).addClass("goal_update");
+		$(this).append('<h2 id="goal_update" class="btn btn-lg btn-default">Update goal</h2>')
+	})
+	$( "body" ).on( "click", "#goal_update", function(){
+		if($(".goal_update")[0]){
+			var id=$(".goal_update").attr("id");
+			var childrens=$(".goal_update").children();
+
+			var title=childrens[0].childNodes[0].value;
+			var about=childrens[1].childNodes[0].value;
+			
+			$(".goal_update").children("div").stop(true, true).removeClass("in").attr("id","goal_"+id);
+			if (updateGoal($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val(),id,title,about)) {
+				childrens[0].innerHTML=title+'<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>;'					
+				childrens[1].innerHTML=about;					
+			}
+			$(".goal_update").removeClass("goal_update");
+			$("#goal_update").remove();
+		}
 
 	})
 

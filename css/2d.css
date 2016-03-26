@@ -52,4 +52,13 @@
 	border-radius: 0 0 1vmax 1vmax;
 
 }
+.goal h2{
+	text-overflow: ellipsis; 
+	overflow: hidden;
+	width: 100%;
+	white-space: nowrap;
+}
+textarea{
+	resize: vertical;
+}
 
