@@ -18,11 +18,12 @@
 
  	width: 12%;
 	height: 12%;
-    background: #333333;
+    background: #333;
     margin: 1.1%;
     padding: 0.5%;
-    font-size: 1em;
-    color : #CCCCCC;
+    font-size: 1.2em;
+    font-weight:700;
+    color :  #DDD;
     display: inline-block;
 }
 .date:hover{
@@ -42,21 +43,40 @@
 }
 
 #months{
-	/*
-	visibility: hidden;
-	*/
 	margin-top:-0.2vmax;
-
 	border: 0.15vmax solid #bbb;
 	border-top: none;
 	border-radius: 0 0 1vmax 1vmax;
-
+}
+.goal{
+	border:white solid;
+	border-radius: 0.8vmax ;
+	padding:0.5vmax;
 }
 .goal h2{
 	text-overflow: ellipsis; 
 	overflow: hidden;
-	width: 100%;
+	width: 85%;
 	white-space: nowrap;
+}
+.goal .btn-danger{
+	margin-top: 10px;
+}
+.goal:nth-child(2n){
+	background-color:#1DE9B6;
+}
+.goal:nth-child(2n+1){
+	background-color:#B2FF59;
+}
+.panel{
+	background-color:inherit ;
+}
+.goal_update h2{
+    margin: 0;
+    width: 100%;
+}
+.goal_update div{
+	height: inherit
 }
 textarea{
 	resize: vertical;

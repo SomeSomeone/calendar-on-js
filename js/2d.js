@@ -71,8 +71,8 @@ function paintGoals(year,month,day){
 			else{
 				var about="";
 			}
-			$("#goals").append('<div class="goal" id="'+i+'">'+
-				'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+delete_button+"</h2>"+
+			$("#goals").append('<div class="goal" id="'+i+'">'+delete_button+
+				'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+"</h2>"+
 				about+'</div>')
 					
 		};
@@ -255,35 +255,39 @@ $(document).ready(function() {
 
 	$( "body" ).on( "dblclick", ".goal:not(.goal_update)", function() {
 		if($(".goal_update")[0]){
+
 			$(".goal_update").children("div").stop(true, true).removeClass("in").attr("id","goal_"+$(".goal_update").attr("id"));
+			
 			var childrens=$(".goal_update").children();
-			console.log($("#year_goal").val());
 			var this_goal=getGoals()[$("#year_goal").val()][$("#month_goal").val()][$("#day_goal").val()][$(".goal_update").attr("id")];
 			var title=this_goal["title"];
 			var about=this_goal["about"];
 			
-			childrens[0].innerHTML=title+'<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>;'					
+			childrens[0].innerHTML=title;			
 			childrens[1].innerHTML=about;					
 
+			$(".goal_update").prepend('<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>');
 			$(".goal_update").removeClass("goal_update");
 			$("#goal_update").remove();	
 		}
 
 
 		var childrens=$(this).children();
-		$(this).children("div").stop().addClass("in").attr("id","");
+		$(this).children(".delete_goal").remove();
+		$(this).children("div").stop(true,true).addClass("in").attr("id","").css({"height":"inherit"});
 
 		
 		
 		for (var index = childrens.length - 1; index >= 0; index--) {
 			var shit = childrens[index].childNodes[0].nodeValue;
-			childrens[index].innerHTML='<textarea class="form-control" rows="3" >'+shit+'</textarea>';
+			childrens[index].innerHTML='<textarea class="form-control" rows="'+(index*2)+'" >'+shit+'</textarea>';
 		}
 		$(this).addClass("goal_update");
 		$(this).append('<h2 id="goal_update" class="btn btn-lg btn-default">Update goal</h2>')
 	})
 	$( "body" ).on( "click", "#goal_update", function(){
 		if($(".goal_update")[0]){
+			
 			var id=$(".goal_update").attr("id");
 			var childrens=$(".goal_update").children();
 
@@ -292,14 +296,25 @@ $(document).ready(function() {
 			
 			$(".goal_update").children("div").stop(true, true).removeClass("in").attr("id","goal_"+id);
 			if (updateGoal($("#year_goal").val(),$("#month_goal").val(),$("#day_goal").val(),id,title,about)) {
-				childrens[0].innerHTML=title+'<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>;'					
+				childrens[0].innerHTML=title					
 				childrens[1].innerHTML=about;					
 			}
+			$(".goal_update").prepend('<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>');
 			$(".goal_update").removeClass("goal_update");
+			
 			$("#goal_update").remove();
 		}
 
 	})
+	$( "body" ).on( "click", ".goal", function() {
+		if($(this).children("h2").css("white-space")=="normal" && $(this).children().hasClass("in")){
+			$(this).children("h2").css({"white-space":"pre"});
+		}
+		else{
+			$(this).children("h2").css({"white-space":"normal"});
+		}
+	})
+
 
 
 })
