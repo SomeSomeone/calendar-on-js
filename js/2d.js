@@ -255,11 +255,12 @@ $(document).ready(function() {
 
 	$( "body" ).on( "dblclick", ".goal:not(.goal_update)", function() {
 		if($(".goal_update")[0]){
-			$(".goal_update").children("div").stop(true, true).attr("id","goal_"+$(".goal_update").attr("id"));
+			$(".goal_update").children("div").stop(true, true).removeClass("in").attr("id","goal_"+$(".goal_update").attr("id"));
 			var childrens=$(".goal_update").children();
-			
-			var title=childrens[0].childNodes[0].value;
-			var about=childrens[1].childNodes[0].value;
+			console.log($("#year_goal").val());
+			var this_goal=getGoals()[$("#year_goal").val()][$("#month_goal").val()][$("#day_goal").val()][$(".goal_update").attr("id")];
+			var title=this_goal["title"];
+			var about=this_goal["about"];
 			
 			childrens[0].innerHTML=title+'<div class="delete_goal btn btn-lg btn-danger" style="float:right;">x</div>;'					
 			childrens[1].innerHTML=about;					
