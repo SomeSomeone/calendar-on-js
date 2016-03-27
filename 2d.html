@@ -50,17 +50,23 @@
 			</div>
 		</div>
 		<div class="col-sm-6" id="goals">
-			<div class="container-fluid">
-				<h1 id="date_click"></h1>
-				<h2 data-toggle="collapse" data-target="#new_goal" class="btn btn-lg btn-default">New goal</h2>
+			<div>
+				<h1 id="date_click" style="margin-top: 3px;text-align: center;"></h1>
+				<h2 id="new_goal_btn" data-toggle="collapse" data-target="#new_goal " style="width: 100%;" class="btn btn-lg btn-default">New goal <span id="new_goal_icon" class="glyphicon glyphicon-menu-down"></span></h2>
 
 				<form onsubmit="return false;" class="collapse" id="new_goal">
 					<input id="year_goal" type="hidden">
 					<input id="month_goal" type="hidden">
 					<input id="day_goal" type="hidden">
-					<h3>Title:<textarea id="title_goal"  class="form-control" rows="1"></textarea></h3>
-					<h3>About:<textarea id="about_goal"  class="form-control" rows="6"></textarea></h3>
-					<input class="btn" type="submit" value="Send">
+					<h3>Title:
+						<textarea id="title_goal"  class="form-control" rows="1"></textarea>
+					</h3>
+					<h3>About:
+						<textarea id="about_goal"  class="form-control" rows="6"></textarea>
+					</h3>
+					<h3>
+						<input class="btn btn-lg btn-default" type="submit" value="Save" style="width: 100%;">
+						</h3>
 				</form>
 			
 			</div>

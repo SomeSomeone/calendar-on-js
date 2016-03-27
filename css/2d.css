@@ -6,30 +6,28 @@
     display: inline-block;
 }
 .date{
+		border-radius: 2vmax 3vmax 6vmax  3vmax;
 		cursor :default;
-
-	-webkit-user-select: none;
+		-webkit-user-select: none;
     /* user-select -- это нестандартное свойство */
-
-    -moz-user-select: none;
+		-moz-user-select: none;
     /* поэтому нужны префиксы */
-
-    -ms-user-select: none;
-
- 	width: 12%;
-	height: 12%;
-    background: #333;
-    margin: 1.1%;
-    padding: 0.5%;
-    font-size: 1.2em;
-    font-weight:700;
-    color :  #DDD;
-    display: inline-block;
+		-ms-user-select: none;
+		width: 12%;
+		height: 12%;
+		background: #333;
+		margin: 1.1%;
+		padding: 0.5%;
+		font-size: 1.2em;
+		font-weight:700;
+		color :  #DDD;
+		display: inline-block;
 }
 .date:hover{
-	outline: 0.2vmax solid #FFAA00;
+	background-color:#FFAA00;
 }
 .month{
+	border-radius: 3vmax 3vmax 6vmax 6vmax;
  	text-align: center;   
     padding:0.5em 0;
     margin:1% 0 1% 10%;
@@ -39,7 +37,7 @@
 	display:inline-block;
 }
 .month:hover{
-	outline: 0.2vmax solid #FFAA00;
+	background-color:#FFAA00;
 }
 
 #months{
@@ -62,11 +60,12 @@
 .goal .btn-danger{
 	margin-top: 10px;
 }
+
 .goal:nth-child(2n){
-	background-color:#1DE9B6;
+	background-color:#AAA;
 }
 .goal:nth-child(2n+1){
-	background-color:#B2FF59;
+	background-color:#EEE;
 }
 .panel{
 	background-color:inherit ;
@@ -81,4 +80,6 @@
 textarea{
 	resize: vertical;
 }
-
+.badge{
+	padding: 3px;
+}

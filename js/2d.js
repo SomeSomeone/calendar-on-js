@@ -30,7 +30,7 @@ function Init(year_correct, month_correct){
 		}
 
 		if(day==i&&it_now){
-			var style=' style="outline: 0.2vmax solid #00AAFF;" ';
+			var style=' style="background-color: #00AAFF;" ';
 		}else{
 			var style='';
 		}
@@ -72,8 +72,7 @@ function paintGoals(year,month,day){
 				var about="";
 			}
 			$("#goals").append('<div class="goal" id="'+i+'">'+delete_button+
-				'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+"</h2>"+
-				about+'</div>')
+				'<h2 data-toggle="collapse" data-target="#goal_'+i+'">'+goals[i]["title"]+"</h2>"+about+'</div>')
 					
 		};
 	}
@@ -314,6 +313,15 @@ $(document).ready(function() {
 			$(this).children("h2").css({"white-space":"normal"});
 		}
 	})
+	$("#new_goal_btn").click(function(){
+		if(!($("#new_goal").hasClass("collapsing") ||$("#new_goal").hasClass("in")) && $("#new_goal_icon").hasClass("glyphicon-menu-down")){
+			$("#new_goal_icon").removeClass("glyphicon-menu-down").addClass("glyphicon-menu-up");
+		}
+		else{
+			$("#new_goal_icon").removeClass("glyphicon-menu-up").addClass("glyphicon-menu-down");	
+		}
+	});
+	
 
 
 
